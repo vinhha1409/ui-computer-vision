@@ -1,0 +1,28 @@
+<div style="display: flex; justify-content: space-between; align-items: center; padding-right: 24px;">
+  <h2 class="content-block">Checkin List</h2>
+  <dx-date-box [value]="now" type="date" width="300px" height="36px" (onValueChanged)="onValuChange($event)"> </dx-date-box>
+</div>
+<dx-data-grid
+  class="dx-card wide-card"
+  [dataSource]="datasource"
+  [showBorders]="false"
+  [remoteOperations]="false"
+  [columnAutoWidth]="true"
+  keyExpr="Name"
+>
+  <dxi-column dataField="Name" caption="Name" dataType="string"> </dxi-column>
+  <dxi-column dataField="Time" caption="Checkin Date" dataType="date">
+  </dxi-column>
+  <dxi-column
+    dataField="IsLate"
+    caption="Checkin Status"
+    dataType="number"
+    cellTemplate="statusCellTemplate"
+  >
+    <div *dxTemplate="let data of 'statusCellTemplate'">
+      <div class="arrive-status">
+        {{ data.text ? "Soon" : "Late" }}
+      </div>
+    </div>
+  </dxi-column>
+</dx-data-grid>
